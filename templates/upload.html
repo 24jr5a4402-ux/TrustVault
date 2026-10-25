@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrustVault - Upload</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="app-page">
+    <main class="login-card">
+        <h1>📁 Upload Document</h1>
+        <p>Add a document to your vault.</p>
+
+        {% with messages = get_flashed_messages() %}
+            {% for message in messages %}
+                <p class="flash-message">{{ message }}</p>
+            {% endfor %}
+        {% endwith %}
+
+        <form method="POST" enctype="multipart/form-data"
+              action="{{ url_for('upload_document') }}">
+            <input type="text" name="title"
+                   placeholder="Document title" required>
+
+            <input type="text" name="category"
+                   placeholder="Category (e.g. Personal)" required>
+
+            <input type="file" name="document"
+                   accept=".pdf,.png,.jpg,.jpeg,.docx,.txt" required>
+
+            <button type="submit">Upload Document</button>
+        </form>
+
+        <p class="footer-text">
+            <a href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+        </p>
+    </main>
+</body>
+</html>

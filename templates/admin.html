@@ -1,0 +1,15 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TrustVault Admin</title>
+</head>
+<body>
+    <h1>Admin Dashboard</h1>
+    <h2>Registered Users</h2>
+    {% for u in users %}
+        <p>{{ u.username }} — {{ u.email }} — {{ u.role }}</p>
+    {% endfor %}
+    <a href="/dashboard">Back to Dashboard</a>
+</body>
+</html>

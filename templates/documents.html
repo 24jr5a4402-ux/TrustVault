@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrustVault - My Documents</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="app-page">
+    <main class="app-container">
+        <header class="topbar">
+            <h1>📁 My Documents</h1>
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        </header>
+
+        {% with messages = get_flashed_messages() %}
+            {% for message in messages %}
+                <p class="flash-message">{{ message }}</p>
+            {% endfor %}
+        {% endwith %}
+
+        <section class="panel">
+            {% if documents %}
+                <div class="document-list">
+                    {% for document in documents %}
+                        <div class="document-row">
+                            <div>
+                                <strong>{{ document.title }}</strong>
+                                <p>Category: {{ document.category }}</p>
+                                <p>Uploaded: {{ document.uploaded_at or "Unknown" }}</p>
+                            </div>
+
+                            <a href="{{ url_for('download_document', document_id=document.id) }}">
+                                Download
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>You have no documents yet.</p>
+            {% endif %}
+        </section>
+
+        <p class="footer-text">
+            <a href="{{ url_for('upload_document') }}">Upload another document</a>
+        </p>
+    </main>
+</body>
+</html>

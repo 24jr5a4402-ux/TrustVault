@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrustVault - Register</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="login-card">
+        <h1>🛡️ TrustVault</h1>
+        <p>Secure Sharing, Smarter Access</p>
+        <h2>Create Account</h2>
+
+        {% with messages = get_flashed_messages() %}
+            {% for message in messages %}
+                <p class="flash-message">{{ message }}</p>
+            {% endfor %}
+        {% endwith %}
+
+        <form method="POST" action="{{ url_for('register') }}">
+            <input type="text" name="username"
+                   placeholder="Full name" required>
+
+            <input type="email" name="email"
+                   placeholder="Email address" required>
+
+            <input type="password" name="password"
+                   placeholder="Password (minimum 8 characters)"
+                   minlength="8" required>
+
+            <button type="submit">Create Account</button>
+        </form>
+
+        <p class="footer-text">
+            Already registered? <a href="{{ url_for('home') }}">Sign In</a>
+        </p>
+    </div>
+</body>
+</html>

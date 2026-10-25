@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrustVault - Dashboard</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="app-page">
+    <main class="app-container">
+        <header class="topbar">
+            <div>
+                <h1>🛡️ TrustVault</h1>
+                <p>Secure Sharing, Smarter Access</p>
+            </div>
+
+            <form method="POST" action="{{ url_for('logout') }}">
+                <button type="submit" class="secondary-button">Logout</button>
+            </form>
+        </header>
+
+        <section class="welcome-panel">
+            <h2>Welcome, {{ user.username }}!</h2>
+            <p>Your personal document vault.</p>
+        </section>
+
+        {% with messages = get_flashed_messages() %}
+            {% for message in messages %}
+                <p class="flash-message">{{ message }}</p>
+            {% endfor %}
+        {% endwith %}
+
+        <section class="action-grid">
+            <a class="action-card" href="{{ url_for('upload_document') }}">
+                <span class="action-icon">⬆️</span>
+                <h3>Upload Document</h3>
+                <p>Add a file to your secure vault.</p>
+            </a>
+
+            <a class="action-card" href="{{ url_for('my_documents') }}">
+                <span class="action-icon">📁</span>
+                <h3>My Documents</h3>
+                <p>View and download your files.</p>
+            </a>
+        </section>
+
+        <section class="panel">
+            <h2>Recent Documents</h2>
+
+            {% if documents %}
+                <div class="document-list">
+                    {% for document in documents[:5] %}
+                        <div class="document-row">
+                            <div>
+                                <strong>{{ document.title }}</strong>
+                                <p>{{ document.category }}</p>
+                            </div>
+                            <a href="{{ url_for('download_document', document_id=document.id) }}">
+                                Download
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>No documents uploaded yet.</p>
+            {% endif %}
+        </section>
+    </main>
+</body>
+</html>
